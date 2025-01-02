@@ -1,29 +1,11 @@
 const express = require("express");
-
+const { userRouter } = require("./routes/user");
+const { courseRouter } = require("./routes/course");
+const { adminRouter } = require("./routes/admin");
 const app = express();
 
-app.post("/user/signup", function (req, res) {
-  res.json({
-    message: "signup endpoint",
-  });
-});
-app.post("/user/signin", function (req, res) {
-  res.json({
-    message: "signin endpoint",
-  });
-});
-app.get("/user/purchase", function (req, res) {
-  res.json({
-    message: "signup endpoint",
-  });
-});
-app.post("/course/puchase", function (req, res) {
-  res.json({
-    message: "signup endpoint",
-  });
-});
-app.get("/course", function (req, res) {
-  res.json({
-    message: "signup =",
-  });
-});
+app.use("/api/v1/user", userRouter);
+app.use("/api/v1/admin", adminRouter);
+app.use("/api/v1/course", courseRouter);
+
+app.listen(3000);

@@ -24,6 +24,6 @@ app.post("/course/puchase", function (req, res) {
 });
 app.get("/course", function (req, res) {
   res.json({
-    message: "signup endpoint",
+    message: "signup =",
   });
 });

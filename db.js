@@ -1,20 +1,23 @@
 const mongoose = require("mongoose");
+mongoose.connect(
+  "mongodb+srv://kirti:kirti0707@cluster0.8o1i9.mongodb.net/course-app"
+);
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Types.ObjectId;
 
-const userSchema = Schema({
+const userSchema = new Schema({
   email: { type: String, unique: true },
   password: String,
   firstname: String,
   lastname: String,
 });
-const adminSchema = Schema({
+const adminSchema = new Schema({
   email: { type: String, unique: true },
   password: String,
   firstname: String,
   lastname: String,
 });
-const coursechema = Schema({
+const coursechema = new Schema({
   title: String,
   description: String,
   price: String,
@@ -22,16 +25,16 @@ const coursechema = Schema({
   creatorId: ObjectId,
 });
 
-const purchaseSchema = Schema({
+const purchaseSchema = new Schema({
   userId: ObjectId,
   courceId: ObjectId,
 });
-const userModel = mongoose.Model("user", userSchema);
-const adminModel = mongoose.Model("admin", adminSchema);
-const courseModel = mongoose.Model("course", courseeSchema);
-const purchaseModel = mongoose.Model("purchase", purchaseSchema);
+const userModel = mongoose.model("user", userSchema);
+const adminModel = mongoose.model("admin", adminSchema);
+const courseModel = mongoose.model("course", coursechema);
+const purchaseModel = mongoose.model("purchase", purchaseSchema);
 
-module.export = {
+module.exports = {
   userModel,
   adminModel,
   courseModel,

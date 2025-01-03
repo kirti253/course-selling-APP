@@ -1,9 +1,9 @@
 const { Router } = require("express");
 const adminRouter = Router();
-const { adminModel } = require("../db");
-const JWT_ADMIN = "de43fdw3";
+const { adminModel, courseModel } = require("../db");
+const { JWT_ADMIN } = require("../config");
 const jwt = require("jsonwebtoken");
-
+const { adminMiddleware } = require("../midddleware/admin");
 adminRouter.post("/signup", async function (req, res) {
   const { email, password, lastname, firstname } = req.body;
   try {
@@ -43,7 +43,23 @@ adminRouter.post("/signin", async function (req, res) {
     res.status(403).json({ message: "inccorect credential" });
   }
 });
-adminRouter.post("/", async function (req, res) {});
+adminRouter.post("/", adminMiddleware, async function (req, res) {
+  const adminId = req.userId;
+
+  const { title, description, imageUrl, price } = req.body;
+
+  const course = await courseModel.create({
+    title: title,
+    description: description,
+    imageUrl: imageUrl,
+    price: price,
+    creatorId: adminId,
+  });
+  res.json({
+    message: "course created",
+    cousreId: cousre._id,
+  });
+});
 adminRouter.put("/", async function (req, res) {});
 adminRouter.get("/bulk", function (req, res) {
   res.json({
